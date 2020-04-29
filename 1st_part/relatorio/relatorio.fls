@@ -234,6 +234,9 @@ INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
 INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
+INPUT /home/miguel/Documentos/Universidade/MDS/final-work-mds/1st_part/relatorio/images/diagra_usecases.png
+INPUT /home/miguel/Documentos/Universidade/MDS/final-work-mds/1st_part/relatorio/images/diagra_usecases.png
+INPUT /home/miguel/Documentos/Universidade/MDS/final-work-mds/1st_part/relatorio/images/diagra_usecases.png
 INPUT /home/miguel/Documentos/Universidade/MDS/final-work-mds/1st_part/relatorio/images/diagrama_classes.png
 INPUT /home/miguel/Documentos/Universidade/MDS/final-work-mds/1st_part/relatorio/images/diagrama_classes.png
 INPUT /home/miguel/Documentos/Universidade/MDS/final-work-mds/1st_part/relatorio/images/diagrama_classes.png
