@@ -2,8 +2,7 @@
 
 ## Login
 
-- Nome: **Login**
-- Ator principal: Aluno, Docente
+- Ator principal: Aluno, Professor
 - Comportamento normal de sucesso:
   1. Preencher Username, Password
   2. Clicar no botão de **Login**
@@ -18,8 +17,7 @@
 
 ## Consulta das presenças
 
-- Nome: **Consulta das presenças**
-- Ator principal: Aluno, Docente
+- Ator principal: Aluno, Professor
 - Comportamento normal de sucesso:
   1. Preencher Username, Password
   2. Clicar no botão de **Login**
@@ -33,8 +31,7 @@
 
 ## Justificar/Injustificar as presenças
 
-- Nome: **Consulta das presenças**
-- Ator principal: Docente
+- Ator principal: Professor
 - Comportamento normal de sucesso:
   1. Preencher Username, Password
   2. Clicar no botão de **Login**
@@ -44,8 +41,7 @@
 
 ## Gerar Relatório
 
--Nome: **Gerar Relatório**
--Ator principal: Docente
+-Ator principal: Professor
 - Comportamento normal de sucesso:
   1. Preencher Username, Password
   2. Clicar no botão de **Login**
@@ -55,8 +51,7 @@
 
 ## Criação/Alteração do Horário de Funcionamento
 
--Nome: **Criação/Alteração do Horário de Funcionamento**
--Ator principal: Docente
+-Ator principal: Professor
 - Comportamento normal de sucesso:
   1. Preencher Username, Password
   2. Clicar no botão de **Login**
@@ -68,8 +63,7 @@
 
 ## Sincronização do Membros com o SIIUE
 
--Nome: **Sincronização do Membros com o SIIUE**
--Ator principal: Docente
+-Ator principal: Professor
 - Comportamento normal de sucesso:
   1. Preencher Username, Password
   2. Clicar no botão de **Login**
