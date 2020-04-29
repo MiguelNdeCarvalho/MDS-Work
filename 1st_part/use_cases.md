@@ -70,3 +70,14 @@
   3. Mostrar página principal do programa
   4. Clicar no botão **Alunos**
   5. Clicar no botão **Sincronizar com o SIIUE**
+
+## Passagem do cartão
+
+-Ator principal : Aluno, Professor
+- Comportamento normal de sucesso:
+  1. Interpretação do cartão após a passagem do mesmo
+  2. Sistema identifica o utilizador 
+  3. Regista a presença deste
+- Extensões:
+   - 2 - O utilizador é Professor
+       - A aula é validada bem como a presença dos alunos que passaram o cartão  
