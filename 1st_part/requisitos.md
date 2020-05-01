@@ -1,4 +1,4 @@
-# Requisitos do Sistema
+# Requisitos
 
 ## Resquisitos do Utilizador
 
