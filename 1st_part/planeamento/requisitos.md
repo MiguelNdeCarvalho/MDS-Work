@@ -2,11 +2,11 @@
 
 ## Resquisitos do Utilizador
 
-- O Software fornecerá registos das presenças (dos alunos e professores) nas aulas de MDS;
-- O Software permite editar os horários das aulas (data, hora, duração e tipo das aulas);
-- O Software contabiliza a presença dos alunos e dos docentes através da passagem dos cartões;
-- O Software deve permitir consultar e alterar o estado das faltas (justificadas ou injustificadas);
-- O Software deve gerar um relatório das faltas dos alunos e das aulas não lecionadas por cada professor, no final do semestre.
+- Fornecer registos das presenças (dos alunos e professores) nas aulas de MDS;
+- Permitir editar os horários das aulas (data, hora, duração e tipo das aulas);
+- Contabilizar a presença dos alunos e dos docentes através da passagem dos cartões;
+- Permitir consultar e alterar o estado das faltas (justificadas ou injustificadas);
+- Gerar um relatório das faltas dos alunos e das aulas não lecionadas por cada professor, no final do semestre.
 
 ## Requisitos do Sistema
 
