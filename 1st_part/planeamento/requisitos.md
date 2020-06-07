@@ -31,3 +31,9 @@
 	- Lista de alunos com entre 25% e 50% de faltas;
 	
 	- Lista de alunos com mais de 50% de faltas;
+
+- É necessário uma base de dados, para guardar a informação;
+
+- Leitor de cartões;
+
+- Sistema de logins para os utlizadores.
