@@ -39,15 +39,15 @@
   4. Selecionar a visualização de presenças
   5. Altera a presença das aulas que desejar
 
-## Gerar Relatório
+## Consultar Relatório
 
 -Ator principal: Professor
 - Comportamento normal de sucesso:
   1. Preencher Username, Password
   2. Clicar no botão de **Login**
   3. Mostrar página principal do programa
-  4. Clicar no botão de **Gerar Relatório**
-  5. Envio de um ficheiro PDF sobre as faltas dos alunos para o email do docente.
+  4. Clicar no botão de **Consultar Relatório**
+  5. Visualizar o Relatório
 
 ## Criação/Alteração do Horário de Funcionamento
 
