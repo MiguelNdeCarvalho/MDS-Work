@@ -8,9 +8,15 @@ import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class
  //
 public class Presence_Manager {
 
+    //Lista de aulas
+    //Lista de alunos
+    //Lista de aulas
+
+    
 
     public static void main(String[] args) {
         
+
 
     }
 
