@@ -19,17 +19,17 @@ public class User {
         return username;
     }
 
-    private void setUsername(String new_name)
+    protected void setUsername(String new_name)
     {
         username = new_name;
     }
 
-    private String getPassword()
+    protected String getPassword()
     {
         return password;
     }
 
-    private void setPassword(String new_pass)
+    protected void setPassword(String new_pass)
     {
         password = new_pass;
     }
@@ -39,7 +39,7 @@ public class User {
         return isAdmin;
     }
 
-    private void setIsAdmin(boolean value)
+    protected void setIsAdmin(boolean value)
     {
         isAdmin = value;
     }

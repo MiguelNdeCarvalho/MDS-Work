@@ -1,24 +1,63 @@
 import java.util.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.*;
 import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class
 /**
  * Card_Reader
  */
- //System.out.println("Ola"+variable);
  //
 public class Presence_Manager {
 
     //Lista de aulas 
-    private List<Lesson> LESSONS;
+    private static List<Lesson> LESSONS;
     //Lista de alunos
-    private List<Student> STUDENTS;
+    private static List<Student> STUDENTS;
     //Lista de profs
-    private List<Teacher> TEACHERS;
+    private static List<Teacher> TEACHERS;
 
-
-    public static boolean import_users()
+    public void Presence_Manager()
     {
-        //este nao pode aftar o progresso da turma depois da nova sicronização
+        LESSONS = new ArrayList<Lesson>();
+        STUDENTS = new ArrayList<Student>();
+        TEACHERS = new ArrayList<Teacher>();
+
+        try {
+            
+            import_users(); //import from ue website
+        
+        } catch (IOException e) {
+            
+            System.out.println("An error occurred.");
+        }
+    }
+
+    public static boolean import_users() throws IOException
+    {
+        //este nao pode afetar o progresso da turma depois da nova sicronização
+        //o ficheiro representa a informação que se encontra na base de dados
+        try {
+            
+            Path BD = Paths.get("import_alunos"); //reprsenta uma ligação á BD, se nao tiver sucesso, return false
+            Scanner scan = new Scanner(BD);
+
+            String user;
+
+            while (scan.hasNextLine()) {
+                user=scan.nextLine();
+                System.out.println(user);
+            }
+
+        } catch (IOException e) {
+            
+            System.out.println("An error occurred.");
+            return false;
+        }
+
+
+
         return true;
     }
 
@@ -32,9 +71,17 @@ public class Presence_Manager {
 
     }
 
-    public static void student_status(int ID)
+    public static boolean student_status(int ID)
     {
+        for(int i = 0; i<STUDENTS.size(); i++)
+        {
+            if (STUDENTS.get(i).getID()==ID) {
+                System.out.println(STUDENTS.get(i).toString());
+                return true;
+            }
+        }
 
+        return false;
     }
 
     public static void main(String[] args) {
@@ -64,12 +111,21 @@ public class Presence_Manager {
             System.out.println("-                                        -");
             System.out.println("------------------------------------------");  //-");
             
+            System.out.println("- Insira a opção: ");
             option = scan.nextInt();
-
+            System.out.println(" -");
 
             if (option==1) {
                 
-                status=import_users();
+                try {
+            
+                    status=import_users();
+                
+                } catch (IOException e) {
+                    
+                    System.out.println("No Connection to BD");
+                }
+                
                 if(status==true)
                 {
                     System.out.println("- Sucesso na importação dos utilizadores -");
