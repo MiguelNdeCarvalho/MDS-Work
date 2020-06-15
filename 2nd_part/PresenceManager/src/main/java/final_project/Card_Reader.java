@@ -11,7 +11,7 @@ public class Card_Reader {
 
     public static boolean valid_id(String id){
         
-        if (id.length()!=5) {
+        if (id.length()!=3) {
             
             return false;
         }
@@ -37,16 +37,18 @@ public class Card_Reader {
 
         while (student_ID.equals("exit")!=true) {
             
-            LocalDateTime instant = LocalDateTime.now();
-            String time_registed = instant.format(date_format);
-            
             System.out.print("Pass card: ");
             student_ID = scan.next();
 
             if (valid_id(student_ID)) {
 
+                LocalDateTime instant = LocalDateTime.now();
+                String time_registed = instant.format(date_format);
 
                 //marcar presença
+                
+
+
                 System.out.println("ID: "+student_ID+" registed at "+time_registed);
             }
 

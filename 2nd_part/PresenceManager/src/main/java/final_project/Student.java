@@ -40,9 +40,9 @@ public class Student extends User {
         presences.add(new_presence);
     }
 
-    public void change_Presence(Presence new_presence)
+    public List<Presence> get_Presence()
     {
-        presences.add(new_presence);
+        return presences;
     }
 
     public String toString()
@@ -61,5 +61,7 @@ public class Student extends User {
 
         return result;
     }
+
+
 
 }

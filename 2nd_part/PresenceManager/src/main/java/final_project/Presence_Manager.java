@@ -68,7 +68,21 @@ public class Presence_Manager {
 
     public static void get_report()
     {
+        for(int i = 0; i<STUDENTS.size(); i++)
+        {
 
+            System.out.print(assiduidade_of(STUDENTS.get(i)));
+            
+        }
+    }
+
+    public static float assiduidade_of(Student aluno)
+    {
+        if (LESSONS.size()==0) {
+            return 100;
+        }
+
+        return aluno.get_Presence().size()/LESSONS.size();
     }
 
     public static boolean student_status(int ID)
@@ -77,6 +91,7 @@ public class Presence_Manager {
         {
             if (STUDENTS.get(i).getID()==ID) {
                 System.out.println(STUDENTS.get(i).toString());
+                System.out.print(" "+assiduidade_of(STUDENTS.get(i)));
                 return true;
             }
         }
@@ -119,21 +134,22 @@ public class Presence_Manager {
                 
                 try {
             
-                    status=import_users();
+                   status=import_users();
+                   if(status==true)
+                    {
+                        System.out.println("- Sucesso na importação dos utilizadores -");
+                    
+                    }else
+                    {
+                        System.out.println("- Falha na importação dos utilizadores -");
+                    }
                 
                 } catch (IOException e) {
                     
                     System.out.println("No Connection to BD");
                 }
                 
-                if(status==true)
-                {
-                    System.out.println("- Sucesso na importação dos utilizadores -");
                 
-                }else
-                {
-                    System.out.println("- Falha na importação dos utilizadores -");
-                }
             }
             else if(option==2)
             {
