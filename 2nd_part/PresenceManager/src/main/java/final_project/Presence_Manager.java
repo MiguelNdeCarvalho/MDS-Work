@@ -17,19 +17,25 @@ import org.json.simple.parser.ParseException;
 public class Presence_Manager {
 
     //Lista de aulas 
-    private static List<Lesson> LESSONS;
+    protected static List<Lesson> LESSONS;
+    protected static List<LocalDateTime> SCHEDULE;
     //Lista de alunos
-    private static List<User> STUDENTS;
+    protected static List<User> STUDENTS;
     //Lista de profs
-    private static List<User> TEACHERS;
+    protected static List<User> TEACHERS;
     
     //alunos em risco
-    private static Warnings WARNINGS;
+    protected static Warnings WARNINGS;
 
 
     public Presence_Manager()
     {
         LESSONS = new ArrayList<Lesson>();
+        SCHEDULE = new ArrayList<LocalDateTime>();
+        //DateTimeFormatter date_format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        //LocalDateTime instant = LocalDateTime.now();
+        //String time_registed = instant.format(date_format);
+
         STUDENTS = new ArrayList<User>();
         TEACHERS = new ArrayList<User>();
         WARNINGS = new Warnings();
@@ -39,7 +45,7 @@ public class Presence_Manager {
 
     }
 
-    private static void parseUserObject(JSONObject user) {
+    protected static void parseUserObject(JSONObject user) {
         String name = (String) user.get("nome"); 
         String card = (String) user.get("cartao"); 
         String role = (String) user.get("papel");

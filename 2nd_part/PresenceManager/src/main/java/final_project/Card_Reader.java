@@ -2,13 +2,14 @@ package final_project;
 import java.util.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class
+import java.time.temporal.ChronoUnit;
 /**
  * Card_Reader
  */
  //System.out.println("Ola"+variable);
  //
 
-public class Card_Reader {
+public class Card_Reader extends Presence_Manager{
 
     public static boolean valid_id(String id){
         
@@ -28,6 +29,26 @@ public class Card_Reader {
         return true;
     }
 
+    public static boolean itsTime(List<LocalDateTime> horario,LocalDateTime instant)
+    {
+
+        for (LocalDateTime hora : horario) {
+            
+            LocalDateTime end_instant = instant.plus(1,ChronoUnit.HOURS).plus(30,ChronoUnit.MINUTES);
+
+            boolean is_before = instant.toLocalTime().isBefore(hora.toLocalTime());
+            boolean is_after = instant.toLocalTime().isAfter(end_instant.toLocalTime());
+
+            if (!is_after || !is_before) {
+                
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
 
     public static void main(String[] args) {
         
@@ -36,25 +57,36 @@ public class Card_Reader {
         Scanner scan = new Scanner(System.in);
         String student_ID = new String();
 
-        while (student_ID.equals("exit")!=true) {
+        LocalDateTime instant = LocalDateTime.now();
+        String time_registed = instant.format(date_format);
+        //check if its time for a class
+        if(itsTime(SCHEDULE,instant))
+        {
             
-            System.out.print("Pass card: ");
-            student_ID = scan.next();
-
-            if (valid_id(student_ID)) {
-
-                LocalDateTime instant = LocalDateTime.now();
-                String time_registed = instant.format(date_format);
-
-                //marcar presença
-                
-
-
-                System.out.println("ID: "+student_ID+" registed at "+time_registed);
+            while (student_ID.equals("exit")!=true) {
+            
+                System.out.print("Pass card: ");
+                student_ID = scan.next();
+    
+                if (valid_id(student_ID)) {
+    
+                    //marcar presença
+                    
+    
+    
+                    System.out.println("Number: "+student_ID+" registed at "+time_registed);
+                }
             }
 
-
         }
+        else
+        {
+            System.out.println("ERROR: At this moment, there is no Lesson");
+            //break;
+        }
+
+
+       
 
     }
 

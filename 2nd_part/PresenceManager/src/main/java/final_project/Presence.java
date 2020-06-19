@@ -29,8 +29,5 @@ public class Presence {
         return result;
     }
 
-    public static void main(String[] args) {
-        
 
-    }
 }

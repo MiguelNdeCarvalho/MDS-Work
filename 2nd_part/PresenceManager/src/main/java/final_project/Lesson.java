@@ -4,20 +4,19 @@ import java.time.format.*;
 
 public class Lesson {
 
-    LocalDateTime Date;
-    int NºPresence;
-    boolean valid;
+    private LocalDateTime Date;
+    private int NºPresence;
+    private boolean valid;
     
-    public Lesson(boolean set_valid)
+    public Lesson()
     {
         Date = LocalDateTime.now();
-        valid = set_valid;
+        valid = true;
         NºPresence=0;
     }
 
     
 
-    public static void main(String[] args) {
-        
-    }
+    
+
 }
