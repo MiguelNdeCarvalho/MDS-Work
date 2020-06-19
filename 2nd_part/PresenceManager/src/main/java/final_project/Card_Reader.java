@@ -3,7 +3,8 @@ import java.util.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class
 import java.time.temporal.ChronoUnit;
-/**
+/*
+*
  * Card_Reader
  */
  //System.out.println("Ola"+variable);
@@ -29,14 +30,14 @@ public class Card_Reader extends Presence_Manager{
         return true;
     }
 
-    public static boolean itsTime(List<LocalDateTime> horario,LocalDateTime instant)
+    public static boolean itsTime(List<Lesson> horario,LocalDateTime instant)
     {
 
-        for (LocalDateTime hora : horario) {
+        for (Lesson hora : horario) {
             
             LocalDateTime end_instant = instant.plus(1,ChronoUnit.HOURS).plus(30,ChronoUnit.MINUTES);
 
-            boolean is_before = instant.toLocalTime().isBefore(hora.toLocalTime());
+            boolean is_before = instant.toLocalTime().isBefore(hora..toLocalTime());
             boolean is_after = instant.toLocalTime().isAfter(end_instant.toLocalTime());
 
             if (!is_after || !is_before) {
@@ -59,15 +60,22 @@ public class Card_Reader extends Presence_Manager{
 
         LocalDateTime instant = LocalDateTime.now();
         String time_registed = instant.format(date_format);
+        
         //check if its time for a class
-        if(itsTime(SCHEDULE,instant))
+        if(itsTime(LESSONS,instant))
         {
+            for (int i = 0; i < LESSONS.size(); i++) {
+                
+                LESSONS.get(i).
+            }
             
             while (student_ID.equals("exit")!=true) {
             
                 System.out.print("Pass card: ");
                 student_ID = scan.next();
     
+                instant = LocalDateTime.now();
+
                 if (valid_id(student_ID)) {
     
                     //marcar presença
