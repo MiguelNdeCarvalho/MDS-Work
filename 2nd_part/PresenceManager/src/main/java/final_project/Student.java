@@ -1,19 +1,18 @@
 package final_project;
 import java.util.*;
 
-public class Student extends User {
+public class Student extends User implements Comparable{
 
-    private int ID;
-    private String email;
-    private List<Presence> presences;
+    protected int ID;
+    protected String email;
+    protected List<Presence> presences;
 
-    public void Student(int id, String mail)
+    public Student(String nome,int id)
     {
-        
+        username=nome;
         ID = id;
-        email = mail;
         presences = new ArrayList<Presence>();
-        this.setIsAdmin(false);
+        isAdmin=false;
     }
 
     public int getID()
@@ -44,6 +43,11 @@ public class Student extends User {
     public List<Presence> get_Presence()
     {
         return presences;
+    }
+
+    public int compareTo(User user)
+    {
+
     }
 
     public String toString()

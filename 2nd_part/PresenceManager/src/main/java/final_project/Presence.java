@@ -6,7 +6,7 @@ public class Presence {
     int presence_value;
     boolean valid;
 
-    public void Presence(Lesson Aula,int Presence_Value)
+    public Presence(Lesson Aula,int Presence_Value)
     {
         aula=Aula;
         presence_value=Presence_Value;

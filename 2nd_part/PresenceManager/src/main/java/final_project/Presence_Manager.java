@@ -1,13 +1,15 @@
 package final_project;
 import java.util.*;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.*;
 import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class
+
+import java.io.FileReader;
 import org.json.simple.JSONArray; 
 import org.json.simple.JSONObject; 
+import org.json.simple.parser.JSONParser;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import org.json.simple.parser.ParseException;
 /**
  * Card_Reader
  */
@@ -17,49 +19,91 @@ public class Presence_Manager {
     //Lista de aulas 
     private static List<Lesson> LESSONS;
     //Lista de alunos
-    private static List<Student> STUDENTS;
+    private static List<User> STUDENTS;
     //Lista de profs
-    private static List<Teacher> TEACHERS;
+    private static List<User> TEACHERS;
+    
+    //alunos em risco
+    private static Warnings WARNINGS;
 
-    public void Presence_Manager()
+
+    public Presence_Manager()
     {
         LESSONS = new ArrayList<Lesson>();
-        STUDENTS = new ArrayList<Student>();
-        TEACHERS = new ArrayList<Teacher>();
-
-        try {
+        STUDENTS = new ArrayList<User>();
+        TEACHERS = new ArrayList<User>();
+        WARNINGS = new Warnings();
             
-            import_users(); //import from ue website
+        import_users(); //import from ue website
         
-        } catch (IOException e) {
-            
-            System.out.println("An error occurred.");
-        }
+
     }
 
-    public static boolean import_users() throws IOException
+    private static void parseUserObject(JSONObject user) {
+        String name = (String) user.get("nome"); 
+        String card = (String) user.get("cartao"); 
+        String role = (String) user.get("papel");
+          
+        System.out.println(name); 
+        System.out.println(card); 
+        System.out.println(role); 
+	}
+
+    public static boolean import_users() 
     {
         //este nao pode afetar o progresso da turma depois da nova sicronização
         //o ficheiro representa a informação que se encontra na base de dados
+        
         try {
-            
-            Path BD = Paths.get("import_alunos"); //reprsenta uma ligação á BD, se nao tiver sucesso, return false
-            Scanner scan = new Scanner(BD);
 
-            String user;
+            FileReader reader = new FileReader("import_alunos.json");
+            JSONParser jsonParser = new JSONParser();
 
-            while (scan.hasNextLine()) {
-                user=scan.nextLine();
-                System.out.println(user);
-            }
+            Object obj = jsonParser.parse(reader);
 
+            JSONArray userList = (JSONArray) obj;
+
+            userList.forEach( user -> parseUserObject( (JSONObject) user ) );
+             
+
+            /*JSONParser jsonParser = new JSONParser();
+         
+        try (FileReader reader = new FileReader("/tmp/users.json"))
+        {
+            //Read JSON file
+            Object obj = jsonParser.parse(reader);
+ 
+            JSONArray userList = (JSONArray) obj;
+            System.out.println(userList);
+             
+            //Iterate over users array
+            userList.forEach( user -> parseUserObject( (JSONObject) user ) );
+ 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
-            
-            System.out.println("An error occurred.");
-            return false;
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }*/
+    
+    
+        
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+        //ciclo while
 
 
+
+ 
+
+        //
+        
 
         return true;
     }
@@ -79,7 +123,7 @@ public class Presence_Manager {
         }
     }
 
-    public static float assiduidade_of(Student aluno)
+    public static float assiduidade_of(User aluno)
     {
         if (LESSONS.size()==0) {
             return 100;
@@ -92,7 +136,7 @@ public class Presence_Manager {
     {
         for(int i = 0; i<STUDENTS.size(); i++)
         {
-            if (STUDENTS.get(i).getID()==ID) {
+            if (STUDENTS.get(i).getNumber()==ID) {
                 System.out.println(STUDENTS.get(i).toString());
                 System.out.print(" "+assiduidade_of(STUDENTS.get(i)));
                 return true;
@@ -103,12 +147,6 @@ public class Presence_Manager {
     }
 
     public static void main(String[] args) {
-        
-        // (1) Importar dados dos utilizadores
-        // (2) Justificar faltas
-        // (3) Mostrar Relatório de Faltas
-        // (4) Consultar faltas por aluno
-        // (5) Exit
 
         Scanner scan = new Scanner(System.in);
         int option = 0;
@@ -135,23 +173,15 @@ public class Presence_Manager {
 
             if (option==1) {
                 
-                try {
-            
-                   status=import_users();
-                   if(status==true)
-                    {
-                        System.out.println("- Sucesso na importação dos utilizadores -");
-                    
-                    }else
-                    {
-                        System.out.println("- Falha na importação dos utilizadores -");
-                    }
+                status=import_users();
+                if(status==true)
+                {
+                    System.out.println("- Sucesso na importação dos utilizadores -");
                 
-                } catch (IOException e) {
-                    
-                    System.out.println("No Connection to BD");
+                }else
+                {
+                    System.out.println("- Falha na importação dos utilizadores -");
                 }
-                
                 
             }
             else if(option==2)

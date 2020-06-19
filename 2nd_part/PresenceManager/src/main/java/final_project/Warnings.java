@@ -6,7 +6,7 @@ public class Warnings {
     private List<Integer> warned_50;
     private List<Integer> warned_25;
 
-    public void Warnings()
+    public Warnings()
     {
         warned_50 = new ArrayList<Integer>();
         warned_25 = new ArrayList<Integer>();

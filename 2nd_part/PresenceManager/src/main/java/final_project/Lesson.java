@@ -8,7 +8,7 @@ public class Lesson {
     int NºPresence;
     boolean valid;
     
-    public void Lesson(boolean set_valid)
+    public Lesson(boolean set_valid)
     {
         Date = LocalDateTime.now();
         valid = set_valid;

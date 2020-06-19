@@ -7,11 +7,11 @@ public class Teacher extends User {
     private String email;
     private List<Presence> presences;
 
-    public void Student(int id, String mail)
+    public Teacher(int id, String mail)
     {
         
+        username=nome;
         ID = id;
-        email = mail;
         presences = new ArrayList<Presence>();
         this.setIsAdmin(true);
     }
