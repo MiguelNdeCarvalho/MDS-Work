@@ -1,7 +1,9 @@
 package final_project;
 import java.util.*;
 import java.time.*;
-import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class
+import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class	
+import java.util.Scanner;
+
 
 import java.io.FileReader;
 import org.json.simple.JSONArray; 
@@ -57,12 +59,15 @@ public class Presence_Manager {
 
     public static boolean import_users() 
     {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Localização do Ficheiro: ");
+        String location = scanner.nextLine();
         //este nao pode afetar o progresso da turma depois da nova sicronização
         //o ficheiro representa a informação que se encontra na base de dados
         
         try {
 
-            FileReader reader = new FileReader("import_alunos.json");
+            FileReader reader = new FileReader(location);
             JSONParser jsonParser = new JSONParser();
 
             Object obj = jsonParser.parse(reader);
