@@ -58,15 +58,17 @@
           <version>2.22.1</version>
         </plugin>
         <plugin>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.0.2</version>
+          <artifactId>maven-assembly-plugin</artifactId>
           <configuration>
-                  <archive>
-                    <manifest>
-                      <mainClass>final_project.Presence_Manager</mainClass>
-                    </manifest>
-                  </archive>
-                </configuration>
+            <archive>
+              <manifest>
+                <mainClass>final_project.Presence_Manager</mainClass>
+              </manifest>
+            </archive>
+            <descriptorRefs>
+              <descriptorRef>dependencias</descriptorRef>
+            </descriptorRefs>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
