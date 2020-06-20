@@ -240,7 +240,7 @@ public class Presence_Manager {
         boolean status;
         String student_number;
 
-        while (option!=5) {
+        while (option!=6) {
             
             System.out.println("------------------------------------------");
             System.out.println("-                                        -");
@@ -250,7 +250,8 @@ public class Presence_Manager {
             System.out.println("- (2) Justificar faltas                  -");
             System.out.println("- (3) Mostrar Relatório de Faltas        -");
             System.out.println("- (4) Consultar faltas por aluno         -");
-            System.out.println("- (5) Exit                               -");
+            System.out.println("- (5) Leitor de cartões                  -");
+            System.out.println("- (6) Exit                               -");
             System.out.println("-                                        -");
             System.out.println("------------------------------------------");  //-");
             
@@ -287,7 +288,6 @@ public class Presence_Manager {
             {
                 System.out.print("- Insira o numero do user:");
                 student_number=scan.next();
-                System.out.println(" -");
 
                 student_justify(student_number);
 
@@ -300,11 +300,15 @@ public class Presence_Manager {
             {
                 System.out.print("- Insira o numero do user:");
                 student_number=scan.next();
-                System.out.println(" -");
 
                 student_status(student_number);
             }
             else if(option==5)
+            {
+                //insert Card Reader Software
+
+            }
+            else if(option==6)
             {
                 break;
             }

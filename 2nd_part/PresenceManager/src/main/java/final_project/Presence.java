@@ -3,14 +3,14 @@ package final_project;
 public class Presence {
 
     Lesson aula;
-    int presence_value;
+    double presence_value;
     boolean valid;
 
-    public Presence(Lesson Aula,int Presence_Value)
+    public Presence(Lesson Aula,double Presence_Value,boolean Valid)
     {
         aula=Aula;
         presence_value=Presence_Value;
-        valid=true;
+        valid=Valid;
     }
 
 
@@ -25,12 +25,12 @@ public class Presence {
     }
 
 
-    public void setPresence_value(int value)
+    public void setPresence_value(double value)
     {
         presence_value=value;
     }
 
-    public int getPresence_value()
+    public double getPresence_value()
     {
         return presence_value;
     }
@@ -44,9 +44,6 @@ public class Presence {
     {
         return valid;
     }
-
-    
-
 
     public String toString()
     {
