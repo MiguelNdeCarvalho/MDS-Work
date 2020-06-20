@@ -9,11 +9,11 @@ public class User {
     protected String password;
     protected boolean isAdmin;
     
-    protected int number;
+    protected String number;
     protected String email;
     protected List<Presence> presences;
 
-    public User(String nome,int id,String role)
+    public User(String nome,String id,String role)
     {
         username = nome;
         number = id;
@@ -29,6 +29,9 @@ public class User {
         {
             isAdmin = false;
         }
+
+        presences = new ArrayList<Presence>();
+
         
     }
 
@@ -66,12 +69,12 @@ public class User {
 
 
 
-    public int getNumber()
+    public String getNumber()
     {
         return number;
     }
 
-    protected void setNumber(int new_number)
+    protected void setNumber(String new_number)
     {
         number = new_number;
     }
@@ -116,12 +119,16 @@ public class User {
         
         if (presences.size()==0) {
             
-            return result+"sem presenças";
+            return result+" sem presenças";
         }
-
-        for(int i=0; i<presences.size(); i++)
+        else
         {
-            result=result+" | "+presences.get(i).toString();
+
+            for(int i=0; i<presences.size(); i++)
+            {
+                result=result+" | "+presences.get(i).toString();
+            }
+
         }
 
         return result;

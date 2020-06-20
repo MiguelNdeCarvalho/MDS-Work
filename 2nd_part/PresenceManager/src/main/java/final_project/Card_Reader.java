@@ -12,6 +12,7 @@ import java.time.temporal.ChronoUnit;
 
 public class Card_Reader extends Presence_Manager{
 
+    /*
     public static boolean valid_id(String id){
         
         if (id.length()!=3) {
@@ -30,6 +31,7 @@ public class Card_Reader extends Presence_Manager{
         return true;
     }
 
+    
     public static boolean itsTime(List<Lesson> horario,LocalDateTime instant)
     {
 
@@ -49,6 +51,7 @@ public class Card_Reader extends Presence_Manager{
 
         return false;
     }
+    
 
 
     public static void main(String[] args) {
@@ -97,6 +100,7 @@ public class Card_Reader extends Presence_Manager{
        
 
     }
+    */
 
 }
 
