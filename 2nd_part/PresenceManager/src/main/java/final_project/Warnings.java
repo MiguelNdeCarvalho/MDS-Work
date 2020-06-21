@@ -12,7 +12,17 @@ public class Warnings {
         warned_25 = new ArrayList<Integer>();
     }
 
-    public static void main(String[] args) {
-        
+    public List<Integer> get_L()
+    {
+        return warned_50;
     }
+
+    public List<Integer> get_XXV()
+    {
+        return warned_25;
+    }
+
+    
+
+
 }

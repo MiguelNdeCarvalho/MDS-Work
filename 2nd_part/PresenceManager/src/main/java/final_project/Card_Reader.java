@@ -13,6 +13,7 @@ import java.time.temporal.ChronoUnit;
 public class Card_Reader extends Presence_Manager{
 
     
+    
     public static boolean valid_id(String id){
         
         if (id.length()!=3) {
@@ -37,7 +38,7 @@ public class Card_Reader extends Presence_Manager{
 
         for (Lesson hora : horario) {
             
-            LocalDateTime end_instant = instant.plus(1,ChronoUnit.HOURS).plus(30,ChronoUnit.MINUTES);
+            LocalDateTime end_instant = instant.plus(2,ChronoUnit.HOURS);
 
             boolean is_before = instant.toLocalTime().isBefore(hora.getDate().toLocalTime());
             boolean is_after = instant.toLocalTime().isAfter(end_instant.toLocalTime());

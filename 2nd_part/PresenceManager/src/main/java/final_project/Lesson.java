@@ -67,6 +67,12 @@ public class Lesson{
         boolean same_day =this.Date.toLocalDate().toString().equals(cmp.getDate().toLocalDate().toString());
         boolean same_hour = this.Date.toLocalTime().toString().equals(cmp.getDate().toLocalTime().toString());
 
+        System.out.println("Date: "+this.Date.toLocalDate().toString()+" | "+cmp.getDate().toLocalDate());
+        System.out.println("Hour: "+this.Date.toLocalTime().toString()+" | "+cmp.getDate().toLocalTime());
+
+
+
+
         if (same_day && same_hour) {
             return true;
         }

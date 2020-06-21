@@ -2,6 +2,8 @@ package final_project;
 import java.util.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class	
+import java.time.temporal.ChronoUnit;
+
 import java.util.Scanner;
 
 
@@ -20,6 +22,7 @@ public class Presence_Manager {
 
     //Lista de aulas 
     protected static List<Lesson> LESSONS = new ArrayList<Lesson>();
+    protected static int n_valid_lessons=0;
     //Lista de alunos
     protected static List<User> STUDENTS = new ArrayList<User>();
     //Lista de profs
@@ -137,6 +140,7 @@ public class Presence_Manager {
         if (LESSONS.size()==0) {
             
             LESSONS.add(new_lesson);
+            n_valid_lessons++;
         }
         else
         {
@@ -153,6 +157,7 @@ public class Presence_Manager {
             if (!existe) {
                 
                 LESSONS.add(new_lesson);
+                n_valid_lessons++;
             }
         }
 
@@ -202,21 +207,43 @@ public class Presence_Manager {
 
     public static void get_report()
     {
+        /*- Listagem de alunos com o número de presenças e respectiva percentagem;
+        	- Gráfico de presenças por aula, ao longo do tempo;
+    - Lista de alunos com entre 25% e 50% de faltas;
+    	- Lista de alunos com mais de 50% de faltas;
+
+
+*/ 
+
         for(int i = 0; i<STUDENTS.size(); i++)
         {
-
-            System.out.print(assiduidade_of(STUDENTS.get(i)));
-            
+            System.out.print("Num: "+STUDENTS.get(i).getNumber());
+            System.out.print("| NºPresenças: "+STUDENTS.get(i).get_Presence().size());
+            System.out.println("| Assiduidade: "+assiduidade_of(STUDENTS.get(i),n_valid_lessons));
         }
+
+        for(int i = 0; i<LESSONS.size() ; i++)
+        {
+            if (LESSONS.get(i).getValid()==true) {
+                System.out.print("Lesson: "+LESSONS.get(i).getDate().toLocalDate()+" "+LESSONS.get(i).getDate().toLocalTime());
+                System.out.println(" -----> NºPresences: "+LESSONS.get(i).getN_Presence());   
+            }
+        }
+
+        System.out.println(WARNINGS.get_XXV());   
+        System.out.println(WARNINGS.get_L());   
+
+
     }
 
-    public static float assiduidade_of(User aluno)
+    public static float assiduidade_of(User aluno,int n_valid_lessons)
     {
-        if (LESSONS.size()==0) {
+        if (n_valid_lessons==0) {
+            
             return 100;
         }
 
-        return aluno.get_Presence().size()/LESSONS.size();
+        return (aluno.get_Presence().size()/n_valid_lessons)*100;
     }
 
     public static boolean student_status(String ID)
@@ -225,12 +252,68 @@ public class Presence_Manager {
         {
             if (STUDENTS.get(i).getNumber().equals(ID)) {
                 System.out.println(STUDENTS.get(i).toString());
-                System.out.print(" "+assiduidade_of(STUDENTS.get(i)));
+                System.out.print(" "+assiduidade_of(STUDENTS.get(i),n_valid_lessons));
                 return true;
             }
         }
 
         return false;
+    }
+
+    public static boolean valid_id(String id){
+        
+        if (id.length()!=3) {
+            
+            return false;
+        }
+        
+        for(int i=0;i<id.length();i++)
+        {
+            if ((int) id.charAt(i)<48 || (int) id.charAt(i)>57)
+            {
+                return false;
+            }
+        }
+    
+        return true;
+    }
+
+    
+    public static Lesson itsTime(List<Lesson> horario,LocalDateTime instant)
+    {
+
+        for (Lesson hora : horario) {
+            
+            LocalDateTime end_instant = hora.getDate().plus(2,ChronoUnit.HOURS);
+
+            boolean is_before = instant.isBefore(hora.getDate());
+            boolean is_after = instant.isAfter(end_instant);
+
+
+
+            if (!is_after && !is_before) {
+                
+                return hora;
+            }
+
+        }
+
+        return null;
+    }
+
+    public  static void validate_Lesson_for_students(Lesson aula)
+    {
+        for (int i = 0; i < STUDENTS.size(); i++) {
+                        
+            for (int j = 0; j < STUDENTS.get(i).get_Presence().size(); j++) {
+                                
+                if (STUDENTS.get(i).get_Presence().get(j).getLesson().equals(aula) ) {
+                    STUDENTS.get(i).get_Presence().get(j).setValid(true);
+                } 
+
+            }
+                    
+        }
     }
 
     public static void main(String[] args) {
@@ -305,7 +388,139 @@ public class Presence_Manager {
             }
             else if(option==5)
             {
-                //insert Card Reader Software
+                DateTimeFormatter date_format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
+                String user_ID = new String();
+
+                LocalDateTime instant = LocalDateTime.now();
+
+                
+                //check if its time for a class
+                Lesson actual_lesson=itsTime(LESSONS,instant);
+                //System.out.print(actual_lesson.getDate().toLocalDate());
+
+
+                if(actual_lesson!=null)
+                {
+                    
+                    while (true) {
+                    
+                        System.out.print("Pass card: ");
+                        user_ID = scan.next();
+            
+                        instant = LocalDateTime.now();
+
+                        if (valid_id(user_ID)) {
+            
+                            //marcar presença
+                            for (int i = 0; i < TEACHERS.size(); i++) {
+                                
+                                User actual_prof = TEACHERS.get(i);
+
+                                if (user_ID.equals(actual_prof.getNumber())){
+                                    
+                                    boolean presente=false; 
+
+                                    for (int j = 0; j < actual_prof.get_Presence().size(); j++) {
+                                        
+                                        if (actual_prof.get_Presence().get(j).getLesson().equals(actual_lesson)) {
+                                            presente=true;
+                                        } 
+
+                                    }
+
+                                    if (!presente) {
+
+
+                                        validate_Lesson_for_students(actual_lesson);
+                                        actual_lesson.setValid(true);
+
+
+                                        Presence new_presence = new Presence(actual_lesson, 1, true);
+                                        actual_lesson.setN_Presence(actual_lesson.getN_Presence()+1);
+
+                                        
+                                        actual_prof.add_Presence(new_presence);
+                                        System.out.println("Number: "+user_ID+", valid class");
+                                    
+                                    }else{
+                                        System.out.println("Number: "+user_ID+" already registed");
+                                    }
+                                        
+                                    
+                                }
+                            }
+
+
+                            for (int i = 0; i < STUDENTS.size(); i++) {
+                                
+                                User actual_student = STUDENTS.get(i);
+
+                                if (user_ID.equals(actual_student.getNumber())){
+                                    
+                                    boolean presente=false; 
+
+                                    for (int j = 0; j < actual_student.get_Presence().size(); j++) {
+                                        
+                                        if (actual_student.get_Presence().get(j).getLesson().equals(actual_lesson)) {
+                                            presente=true;
+                                        } 
+
+                                    }
+
+                                    if (!presente) {
+                                        
+                                        double Presence_Value;
+                                        boolean on_time = instant.toLocalTime().isBefore(actual_lesson.getDate().toLocalTime().plus(60,ChronoUnit.MINUTES));
+
+                                        System.out.println("lesson time:"+instant.toLocalTime());
+                                        System.out.println("half lesson:"+actual_lesson.getDate().toLocalTime().plus(60,ChronoUnit.MINUTES));
+
+                                        if(on_time)
+                                        {
+                                            Presence_Value=1;
+                                        }
+                                        else
+                                        {
+                                            Presence_Value=0.5;
+                                        }
+
+                                        Presence new_presence = new Presence(actual_lesson, Presence_Value, actual_lesson.getValid());
+                                        actual_lesson.setN_Presence(actual_lesson.getN_Presence()+1);
+
+                                        String time_registed = instant.format(date_format);
+
+                                        
+                                        actual_student.add_Presence(new_presence);
+                                        System.out.println("Number: "+user_ID+" registed at "+time_registed);
+                                    
+                                    }else{
+                                        System.out.println("Number: "+user_ID+" already registed");
+                                    }
+                                        
+                                    
+                                }
+                            }
+
+            
+
+                        }
+                        else if(user_ID.equals("exit")==true){
+
+                            break;
+                        }
+                        else
+                        {
+                            System.out.println("-  Invalid Number   -");
+                        }
+                    }
+
+                }
+                else 
+                {
+                    System.out.println("ERROR: At this moment, there is no Lesson");
+                    //break;
+                }
 
             }
             else if(option==6)
