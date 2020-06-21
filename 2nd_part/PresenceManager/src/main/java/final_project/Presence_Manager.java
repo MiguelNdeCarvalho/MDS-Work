@@ -198,11 +198,6 @@ public class Presence_Manager {
     }
 
 
-    public static void student_justify(String ID)
-    {
-
-    }
-
     public static void get_report()
     {
         /*- Listagem de alunos com o número de presenças e respectiva percentagem;
