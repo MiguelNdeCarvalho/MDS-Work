@@ -22,7 +22,7 @@ public class Presence_Manager {
 
     //Lista de aulas 
     protected static List<Lesson> LESSONS = new ArrayList<Lesson>();
-    protected static int n_valid_lessons=0;
+    protected static double n_valid_lessons=0;
     //Lista de alunos
     protected static List<User> STUDENTS = new ArrayList<User>();
     //Lista de profs
@@ -140,7 +140,6 @@ public class Presence_Manager {
         if (LESSONS.size()==0) {
             
             LESSONS.add(new_lesson);
-            n_valid_lessons++;
         }
         else
         {
@@ -157,7 +156,6 @@ public class Presence_Manager {
             if (!existe) {
                 
                 LESSONS.add(new_lesson);
-                n_valid_lessons++;
             }
         }
 
@@ -213,7 +211,7 @@ public class Presence_Manager {
     	- Lista de alunos com mais de 50% de faltas;
 
 
-*/ 
+*/      System.out.println("NºTotal_Vailid_Lessons: "+n_valid_lessons);
 
         for(int i = 0; i<STUDENTS.size(); i++)
         {
@@ -221,6 +219,8 @@ public class Presence_Manager {
             System.out.print("| NºPresenças: "+STUDENTS.get(i).get_Presence().size());
             System.out.println("| Assiduidade: "+assiduidade_of(STUDENTS.get(i),n_valid_lessons));
         }
+
+        System.out.println();
 
         for(int i = 0; i<LESSONS.size() ; i++)
         {
@@ -230,34 +230,43 @@ public class Presence_Manager {
             }
         }
 
+        System.out.println();
+
         System.out.println(WARNINGS.get_XXV());   
         System.out.println(WARNINGS.get_L());   
 
 
     }
 
-    public static float assiduidade_of(User aluno,int n_valid_lessons)
+    public static double assiduidade_of(User aluno,double n_valid_lessons)
     {
         if (n_valid_lessons==0) {
             
             return 100;
         }
 
-        return (aluno.get_Presence().size()/n_valid_lessons)*100;
+        double n_valid_presences=0;
+
+        for(int i = 0; i<aluno.get_Presence().size(); i++)
+        {
+            if (aluno.get_Presence().get(i).getValid()==true) {
+                n_valid_presences++;
+            }
+        }
+
+        return (n_valid_presences/n_valid_lessons)*100;
     }
 
-    public static boolean student_status(String ID)
+    public static User student_status(String ID)
     {
         for(int i = 0; i<STUDENTS.size(); i++)
         {
             if (STUDENTS.get(i).getNumber().equals(ID)) {
-                System.out.println(STUDENTS.get(i).toString());
-                System.out.print(" "+assiduidade_of(STUDENTS.get(i),n_valid_lessons));
-                return true;
+                System.out.println("Num: "+STUDENTS.get(i).toString());
+                return STUDENTS.get(i);
             }
         }
-
-        return false;
+        return null;
     }
 
     public static boolean valid_id(String id){
@@ -316,6 +325,22 @@ public class Presence_Manager {
         }
     }
 
+
+    public  static void invalidate_Lesson_for_students(Lesson aula)
+    {
+        for (int i = 0; i < STUDENTS.size(); i++) {
+                        
+            for (int j = 0; j < STUDENTS.get(i).get_Presence().size(); j++) {
+                                
+                if (STUDENTS.get(i).get_Presence().get(j).getLesson().equals(aula) ) {
+                    STUDENTS.get(i).get_Presence().get(j).setValid(false);
+                } 
+
+            }
+                    
+        }
+    }
+
     public static void main(String[] args) {
 
         Scanner scan = new Scanner(System.in);
@@ -325,18 +350,18 @@ public class Presence_Manager {
 
         while (option!=6) {
             
-            System.out.println("------------------------------------------");
-            System.out.println("-                                        -");
-            System.out.println("- PRESENCE MANAGER v1.0                  -");
-            System.out.println("-                                        -");
-            System.out.println("- (1) Importar dados do SIIUE            -");
-            System.out.println("- (2) Justificar faltas                  -");
-            System.out.println("- (3) Mostrar Relatório de Faltas        -");
-            System.out.println("- (4) Consultar faltas por aluno         -");
-            System.out.println("- (5) Leitor de cartões                  -");
-            System.out.println("- (6) Exit                               -");
-            System.out.println("-                                        -");
-            System.out.println("------------------------------------------");  //-");
+            System.out.println("--------------------------------------------------");
+            System.out.println("-                                                -");
+            System.out.println("- PRESENCE MANAGER v1.0                          -");
+            System.out.println("-                                                -");
+            System.out.println("- (1) Importar dados do SIIUE                    -");
+            System.out.println("- (2) Justificar/injustificar alunos ou aulas    -");
+            System.out.println("- (3) Mostrar Relatório de Faltas                -");
+            System.out.println("- (4) Consultar faltas por aluno                 -");
+            System.out.println("- (5) Leitor de cartões                          -");
+            System.out.println("- (6) Exit                                       -");
+            System.out.println("-                                                -");
+            System.out.println("--------------------------------------------------");  //-");
             
             System.out.print("- Insira a opção: ");
             option = scan.nextInt();
@@ -369,10 +394,201 @@ public class Presence_Manager {
             }
             else if(option==2)
             {
-                System.out.print("- Insira o numero do user:");
-                student_number=scan.next();
+                String day,hour,validade;
+                double valor;
 
-                student_justify(student_number);
+                int option_j=0;
+                while (option_j!=3) {
+                    
+                    System.out.println("----------------------------------------------------");
+                    System.out.println("-                                                  -");
+                    System.out.println("- ||Justificar/injustificar alunos ou aulas||      -");
+                    System.out.println("-                                                  -");
+                    System.out.println("- (1) Alunos                                       -");
+                    System.out.println("- (2) Aulas                                        -");
+                    System.out.println("- (3) Go Back                                      -");
+                    System.out.println("-                                                  -");
+                    System.out.println("----------------------------------------------------");
+
+                    System.out.print("- Insira a opção: ");
+                    option_j = scan.nextInt();
+                
+                    if (option_j==1) {
+                        
+                        if (STUDENTS.size()==0) {
+                            
+                            System.out.println("- ERROR: Não existem Aulas na BD -");
+
+                        }else{
+                            
+                            System.out.print("- Insira o numero do aluno: ");
+                            student_number=scan.next();
+    
+                            User actual_student=student_status(student_number);
+    
+                            if(actual_student==null)
+                            {
+                                System.out.print("- ERROR: Aluno inexistente na BD -");
+                            }
+                            else
+                            {
+
+                                if (actual_student.get_Presence().size()==0) {
+                            
+                                    System.out.println("- ERROR: Não existem Aulas na BD -");
+                                }
+                                else
+                                {
+                                    System.out.print("- Selecione o dia: ");
+                                    day=scan.next();
+                                    System.out.print("- Selecione a hora: ");
+                                    hour=scan.next();
+                                    
+                                    boolean existe=false;
+                                
+                                    for (int i = 0; i < actual_student.get_Presence().size(); i++) {
+                                                        
+                                        if (actual_student.get_Presence().get(i).getLesson().getDate().toLocalDate().toString().equals(day)){
+                                            
+                                            if (actual_student.get_Presence().get(i).getLesson().getDate().toLocalTime().toString().equals(hour)){
+                                                
+                                                if (actual_student.get_Presence().get(i).getLesson().getValid()==true) {
+                                                    
+                                                    boolean apply;
+        
+                                                    System.out.print("- Insira a validade (true or false): ");
+                                                    validade=scan.next();
+                                                    System.out.print("- Insira o valor (0|0.5|1): ");
+                                                    valor=scan.nextDouble();
+        
+                                                    if (validade.equals("true")){
+                                                        
+                                                        apply=true;
+                                                        actual_student.get_Presence().get(i).getLesson().setN_Presence(actual_student.get_Presence().get(i).getLesson().getN_Presence()+1);
+                                                        if (valor==1 || valor==0.5 || valor==0) {
+                                                        
+                                                            actual_student.get_Presence().get(i).setPresence_value(valor);
+                                                            actual_student.get_Presence().get(i).setValid(apply);
+            
+            
+                                                        }else{
+            
+                                                            System.out.print("- ERROR: Wrong input --> (0|0.5|1) -");
+            
+                                                        }
+        
+                                                    }
+                                                    else if (validade.equals("false")){
+                                                        
+                                                        apply=false;
+                                                        actual_student.get_Presence().get(i).getLesson().setN_Presence(actual_student.get_Presence().get(i).getLesson().getN_Presence()-1);
+                                                        if (valor==1 || valor==0.5 || valor==0) {
+                                                        
+                                                            actual_student.get_Presence().get(i).setPresence_value(valor);
+                                                            actual_student.get_Presence().get(i).setValid(apply);
+            
+            
+                                                        }else{
+            
+                                                            System.out.print("- ERROR: Wrong input --> (0|0.5|1) -");
+            
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        System.out.print("- ERROR: Wrong input --> (true or false) -");
+                                                    }
+        
+        
+                                                }else{
+        
+                                                    System.out.print("- ERROR: Aula invalida (não lecionada) -");
+                                                }
+        
+                                                existe=true;
+                                            }
+                                        } 
+                        
+                                    }
+        
+                                    if (!existe) {
+                                        System.out.println("- ERROR: Aula inexistente para "+actual_student.getNumber() +" -");
+                                    }
+                                }
+    
+                            }
+                        }
+
+                        
+
+
+                    }else if(option_j==2){
+
+                        if (LESSONS.size()==0) {
+                            
+                            System.out.println("- ERROR: Não existem Aulas na BD -");
+                        }
+                        else
+                        {
+                        
+                            System.out.println(LESSONS);
+
+                            System.out.print("- Selecione o dia: ");
+                            day=scan.next();
+                            System.out.print("- Selecione a hora: ");
+                            hour=scan.next();
+    
+                            boolean existe=false;
+    
+                            for(int i = 0; i<LESSONS.size() ; i++)
+                            {
+                                if (LESSONS.get(i).getDate().toLocalDate().toString().equals(day) && LESSONS.get(i).getDate().toLocalTime().toString().equals(hour)) {
+    
+                                    System.out.print("- Insira a validade que deja atribuir á aula (true or false): ");
+                                    validade=scan.next();
+    
+                                    if (validade.equals("true")){
+                                                    
+                                       validate_Lesson_for_students(LESSONS.get(i));
+                                       n_valid_lessons++;
+    
+                                    }
+                                    else if (validade.equals("false")){
+                                        
+                                        invalidate_Lesson_for_students(LESSONS.get(i));
+                                        n_valid_lessons--;
+    
+                                    }
+                                    else
+                                    {
+                                        System.out.print("- ERROR: Wrong input --> (true or false) -");
+                                    }
+                                    existe=true;
+                                }
+                            }
+    
+                            if (!existe) {
+                                
+                                System.out.println("- ERROR: Aula inexistente na BD -");
+    
+                            }
+                        }
+
+                        
+
+                    }
+                    else if(option_j==3){
+                        break;
+                    }
+                    else
+                    {
+                        System.out.println("- Invalid Option -");
+
+                    }
+                
+                
+                }
+                
 
             }
             else if(option==3)
@@ -384,7 +600,10 @@ public class Presence_Manager {
                 System.out.print("- Insira o numero do user:");
                 student_number=scan.next();
 
-                student_status(student_number);
+                if(student_status(student_number)==null)
+                {
+                    System.out.print("- ERROR: Aluno inexistente na BD -");
+                };
             }
             else if(option==5)
             {
