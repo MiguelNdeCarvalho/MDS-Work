@@ -8,9 +8,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class Teacher_Test {
+public class Presence_Test{
 
-    public static void main(String[] args) {
-        
-    }
 }

@@ -250,7 +250,7 @@ public class Presence_Manager {
         for(int i = 0; i<aluno.get_Presence().size(); i++)
         {
             if (aluno.get_Presence().get(i).getValid()==true) {
-                n_valid_presences++;
+                n_valid_presences=n_valid_presences+aluno.get_Presence().get(i).getPresence_value();
             }
         }
 
@@ -726,6 +726,7 @@ public class Presence_Manager {
                         }
                         else if(user_ID.equals("exit")==true){
 
+                            WARNINGS.update(STUDENTS,n_valid_lessons);
                             break;
                         }
                         else
