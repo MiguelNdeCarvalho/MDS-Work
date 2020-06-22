@@ -14,7 +14,11 @@ import org.junit.Test;
 
 public class Warnings_Test {
 
-    public static void main(String[] args) {
-        
+    /*
+    @Test
+    public void test_remove() {
+
+     
     }
+    */
 }

@@ -6,23 +6,35 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 
 public class Presence_Test{
 
+    @Mock
+    Lesson Aula;
+    Lesson tester1;
+    Lesson tester2;
+
+    @Test
     public void test_toString() {
         
-        // Lesson is tested
-        Lesson Aula = new mock(Lesson.class);
         
+        // Lesson is tested
+        when(Aula.toString()).thenReturn("2020-03-24 10:00");
 
         Presence tester1 = new Presence(Aula, 1, true);
-        String must_return = "Lesson: "+tester1.getLesson()+", Value: "+presence_value+", Valid: ";
+        String must_return = "Lesson: 2020-03-24 10:00, Value: 1, Valid: Yes";
 
-        assertEquals(tester1.toString(),"2020-03-24 10:00");
+        assertEquals(tester1.toString(),must_return);
     }
 
+    
+    @Test
     public void testEqual() {
         // Lesson is tested
         Lesson tester1 = new Lesson("2020-03-24","10:00");
