@@ -4,9 +4,7 @@ Nesta 2ª Parte realizámos a implementação do planeamento feito na [1ª parte
 
 ## Comandos para executar o trabalho
 
-- Para **compilar** o trabalho usar o comando `mvn clean compile assembly:single` dentro da pasta [PrensenceManager](PresenceManager/)
-- Para **executar** o trabalho usar o comando `target/PresenceManager-1.0-SNAPSHOT-jar-with-dependencies.jar` dentro da pasta [PrensenceManager](PresenceManager/)
-- Para **executar os testes** usar o comando `mvn test` dentro da pasta [PrensenceManager](PresenceManager/)
+- Usar o script `bash executar.sh`
 
 ## Decisões tomadas durante a implementação
 
