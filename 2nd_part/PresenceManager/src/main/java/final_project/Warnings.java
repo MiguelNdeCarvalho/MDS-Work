@@ -53,7 +53,7 @@ public class Warnings {
             assiduidade_atual=assiduidade_of(actual_aluno, n_valid_lessons);
             
             if ( assiduidade_atual>75) {
-                this.warned_25.remove(actual_aluno);
+                this.warned_25.remove(i);
             }
         }
 
@@ -61,10 +61,9 @@ public class Warnings {
             
             actual_aluno=this.warned_50.get(i);
             assiduidade_atual=assiduidade_of(actual_aluno, n_valid_lessons);
-            
 
             if ( assiduidade_atual>50) {
-                this.warned_50.remove(actual_aluno);
+                this.warned_50.remove(i);
             }
 
         }
@@ -75,7 +74,7 @@ public class Warnings {
             actual_aluno=alunos.get(i);
             assiduidade_atual=assiduidade_of(actual_aluno, n_valid_lessons);
             
-            if (assiduidade_atual>50 && assiduidade_atual<75) {
+            if (assiduidade_atual>=50 && assiduidade_atual<75) {
                 
                 boolean existe = false;
                 for (int j = 0; j < this.warned_25.size(); j++) {

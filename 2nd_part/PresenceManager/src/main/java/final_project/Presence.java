@@ -50,11 +50,11 @@ public class Presence {
         String result="Lesson: "+aula.toString()+", Value: "+presence_value+", Valid: ";
         
         if (valid) {
-            result=result+"Yes ";
+            result=result+"Yes";
         }
         else
         {
-            result=result+"No ";
+            result=result+"No";
         }
 
 

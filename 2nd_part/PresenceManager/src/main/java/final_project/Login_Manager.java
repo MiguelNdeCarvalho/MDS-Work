@@ -15,7 +15,6 @@ public class Login_Manager{
         if (usuario!=null) {
             
             Actual_User=usuario;
-            System.out.println("Acess Garanted");
             return true;
         }
         return false;
@@ -51,7 +50,6 @@ public class Login_Manager{
                 }
                 else
                 {
-                    System.out.println("ERROR: Wrong password");
                     return null;
                 }
                 
@@ -60,7 +58,6 @@ public class Login_Manager{
 
         if (!existe) {
             //adicionar o utilizador com a respetiva pass fornecida pelo SIUE
-            System.out.println("ERROR: Username não existe");
         }
         return null;
 

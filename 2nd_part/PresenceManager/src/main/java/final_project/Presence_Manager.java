@@ -203,15 +203,26 @@ public class Presence_Manager {
         /*- Listagem de alunos com o número de presenças e respectiva percentagem;
         	- Gráfico de presenças por aula, ao longo do tempo;
     - Lista de alunos com entre 25% e 50% de faltas;
-    	- Lista de alunos com mais de 50% de faltas;
+        - Lista de alunos com mais de 50% de faltas;
 
 
-*/      System.out.println("NºTotal_Vailid_Lessons: "+n_valid_lessons);
+
+*/      
+        WARNINGS.update(STUDENTS,n_valid_lessons);
+
+        System.out.println("NºTotal_Vailid_Lessons: "+n_valid_lessons);
 
         for(int i = 0; i<STUDENTS.size(); i++)
         {
             System.out.print("Num: "+STUDENTS.get(i).getNumber());
-            System.out.print("| NºPresenças: "+STUDENTS.get(i).get_Presence().size());
+            int valid_lessons_student=0;
+            for (int j = 0; j < STUDENTS.get(i).get_Presence().size(); j++) {
+                
+                if (STUDENTS.get(i).get_Presence().get(j).getValid()==true) {
+                    valid_lessons_student++;
+                }
+            }
+            System.out.print("| NºPresenças: "+valid_lessons_student);
             System.out.println("| Assiduidade: "+assiduidade_of(STUDENTS.get(i),n_valid_lessons));
         }
 
@@ -227,8 +238,19 @@ public class Presence_Manager {
 
         System.out.println();
 
-        System.out.println(WARNINGS.get_XXV());   
-        System.out.println(WARNINGS.get_L());   
+        System.out.print("Alunos com, pelo menos, 25% de faltas:[");   
+        for (int i = 0; i < WARNINGS.get_XXV().size(); i++) {
+            
+            System.out.print(", "+WARNINGS.get_XXV().get(i).getNumber());   
+        }
+        System.out.println("]");   
+
+        System.out.print("Alunos com, pelo menos, 50% de faltas:[");   
+        for (int i = 0; i < WARNINGS.get_L().size(); i++) {
+            
+            System.out.print(", "+WARNINGS.get_L().get(i).getNumber());   
+        }
+        System.out.println("]");   
 
 
     }
@@ -313,11 +335,14 @@ public class Presence_Manager {
                                 
                 if (STUDENTS.get(i).get_Presence().get(j).getLesson().equals(aula) ) {
                     STUDENTS.get(i).get_Presence().get(j).setValid(true);
+                    
                 } 
 
             }
                     
         }
+        n_valid_lessons++;
+
     }
 
 
@@ -334,6 +359,7 @@ public class Presence_Manager {
             }
                     
         }
+        n_valid_lessons--;
     }
 
     public static void main(String[] args) {
@@ -347,7 +373,7 @@ public class Presence_Manager {
             
             System.out.println("--------------------------------------------------");
             System.out.println("-                                                -");
-            System.out.println("- PRESENCE MANAGER v1.0                          -");
+            System.out.println("- PRESENCE MANAGER v1.1                          -");
             System.out.println("-                                                -");
             System.out.println("- (1) Importar dados do SIIUE                    -");
             System.out.println("- (2) Justificar/injustificar alunos ou aulas    -");
@@ -395,6 +421,8 @@ public class Presence_Manager {
                 int option_j=0;
                 while (option_j!=3) {
                     
+                    WARNINGS.update(STUDENTS,n_valid_lessons);
+    
                     System.out.println("----------------------------------------------------");
                     System.out.println("-                                                  -");
                     System.out.println("- ||Justificar/injustificar alunos ou aulas||      -");
@@ -545,13 +573,11 @@ public class Presence_Manager {
                                     if (validade.equals("true")){
                                                     
                                        validate_Lesson_for_students(LESSONS.get(i));
-                                       n_valid_lessons++;
     
                                     }
                                     else if (validade.equals("false")){
                                         
                                         invalidate_Lesson_for_students(LESSONS.get(i));
-                                        n_valid_lessons--;
     
                                     }
                                     else
@@ -618,6 +644,7 @@ public class Presence_Manager {
                 {
                     
                     while (true) {
+                        WARNINGS.update(STUDENTS,n_valid_lessons);
                     
                         System.out.print("Pass card: ");
                         user_ID = scan.next();
@@ -651,8 +678,6 @@ public class Presence_Manager {
 
 
                                         Presence new_presence = new Presence(actual_lesson, 1, true);
-                                        actual_lesson.setN_Presence(actual_lesson.getN_Presence()+1);
-
                                         
                                         actual_prof.add_Presence(new_presence);
                                         System.out.println("Number: "+user_ID+", valid class");
@@ -687,8 +712,6 @@ public class Presence_Manager {
                                         double Presence_Value;
                                         boolean on_time = instant.toLocalTime().isBefore(actual_lesson.getDate().toLocalTime().plus(60,ChronoUnit.MINUTES));
 
-                                        System.out.println("lesson time:"+instant.toLocalTime());
-                                        System.out.println("half lesson:"+actual_lesson.getDate().toLocalTime().plus(60,ChronoUnit.MINUTES));
 
                                         if(on_time)
                                         {
@@ -721,7 +744,6 @@ public class Presence_Manager {
                         }
                         else if(user_ID.equals("exit")==true){
 
-                            WARNINGS.update(STUDENTS,n_valid_lessons);
                             break;
                         }
                         else

@@ -52,8 +52,8 @@ public class Lesson_Test {
         Lesson tester1 = new Lesson("2020-03-24","10:00");
         tester1.setDuration(2, 0);
 
-        when(end_instant).thenReturn(tester1.getDate().plus(tester1.getDuration_hours(),ChronoUnit.HOURS).plus(tester1.getDuration_mins(),ChronoUnit.MINUTES));
-        when(result_must_be).thenReturn(LocalDateTime.parse("2020-03-24T12:00"));
+        end_instant=tester1.getDate().plus(tester1.getDuration_hours(),ChronoUnit.HOURS).plus(tester1.getDuration_mins(),ChronoUnit.MINUTES);
+        result_must_be=LocalDateTime.parse("2020-03-24T12:00");
 
         assertEquals(end_instant,result_must_be);
 

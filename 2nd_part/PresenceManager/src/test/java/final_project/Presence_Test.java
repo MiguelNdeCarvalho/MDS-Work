@@ -15,20 +15,17 @@ import org.junit.Test;
 
 public class Presence_Test{
 
-    @Mock
-    Lesson Aula;
-    Lesson tester1;
-    Lesson tester2;
-
+    
+    
     @Test
     public void test_toString() {
         
         
         // Lesson is tested
-        when(Aula.toString()).thenReturn("2020-03-24 10:00");
+        Lesson Aula = new Lesson("2020-03-24","10:00");
 
-        Presence tester1 = new Presence(Aula, 1, true);
-        String must_return = "Lesson: 2020-03-24 10:00, Value: 1, Valid: Yes";
+        Presence tester1 = new Presence(Aula, 1.0, true);
+        String must_return = "Lesson: 2020-03-24 10:00, Value: 1.0, Valid: Yes";
 
         assertEquals(tester1.toString(),must_return);
     }

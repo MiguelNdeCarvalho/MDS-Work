@@ -104,7 +104,7 @@ public class User {
 
     public boolean equals(User user)
     {
-        if (this.username.equals(user.getUsername())){ 
+        if (this.username.equals(user.getUsername()) && this.getIsAdmin()==user.getIsAdmin()){ 
             
             return true;
         
