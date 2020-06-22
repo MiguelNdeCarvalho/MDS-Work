@@ -99,9 +99,7 @@ public class Presence_Manager {
 
     public static boolean import_users() 
     {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Localização do Ficheiro (users): ");
-        String location = scanner.nextLine();
+        String location = "import_alunos.json";
         //este nao pode afetar o progresso da turma depois da nova sicronização
         //o ficheiro representa a informação que se encontra na base de dados
         
@@ -168,9 +166,7 @@ public class Presence_Manager {
 
     public static boolean import_lessons() 
     {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Localização do Ficheiro (lessons): ");
-        String location = scanner.nextLine();
+        String location = "import_horario.json";
         //este nao pode afetar o progresso da turma depois da nova sicronização
         //o ficheiro representa a informação que se encontra na base de dados
         
