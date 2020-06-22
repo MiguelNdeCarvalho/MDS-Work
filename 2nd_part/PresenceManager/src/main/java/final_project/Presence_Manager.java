@@ -231,8 +231,21 @@ public class Presence_Manager {
         for(int i = 0; i<LESSONS.size() ; i++)
         {
             if (LESSONS.get(i).getValid()==true) {
+                
                 System.out.print("Lesson: "+LESSONS.get(i).getDate().toLocalDate()+" "+LESSONS.get(i).getDate().toLocalTime());
-                System.out.println(" -----> NºPresences: "+LESSONS.get(i).getN_Presence());   
+                System.out.print(" -----> NºPresences: "+LESSONS.get(i).getN_Presence()); 
+                System.out.println(" Valid: ");
+                
+                if (LESSONS.get(i).getValid()) {
+                    
+                    System.out.println("Yes");
+                }
+                else
+                {
+                    System.out.println("No");
+                }
+           
+  
             }
         }
 
@@ -742,7 +755,7 @@ public class Presence_Manager {
             
 
                         }
-                        else if(user_ID.equals("exit")==true){
+                        else if(user_ID.equals("sair")==true){
 
                             break;
                         }

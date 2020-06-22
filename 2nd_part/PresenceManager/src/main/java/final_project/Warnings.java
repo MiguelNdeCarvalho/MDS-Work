@@ -47,26 +47,8 @@ public class Warnings {
         double assiduidade_atual;
 
         //remover os alunos que não se encontram em risco
-        for (int i = 0; i < this.warned_25.size(); i++) {
-            
-            actual_aluno=this.warned_25.get(i);
-            assiduidade_atual=assiduidade_of(actual_aluno, n_valid_lessons);
-            
-            if ( assiduidade_atual>75) {
-                this.warned_25.remove(i);
-            }
-        }
-
-        for (int i = 0; i < this.warned_50.size(); i++) {
-            
-            actual_aluno=this.warned_50.get(i);
-            assiduidade_atual=assiduidade_of(actual_aluno, n_valid_lessons);
-
-            if ( assiduidade_atual>50) {
-                this.warned_50.remove(i);
-            }
-
-        }
+        warned_50 = new ArrayList<User>();
+        warned_25 = new ArrayList<User>();
         
         //adicionar os alunos que não se encontram em risco
         for (int i = 0; i < alunos.size(); i++) {
