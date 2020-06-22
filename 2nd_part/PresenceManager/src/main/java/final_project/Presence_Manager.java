@@ -288,7 +288,7 @@ public class Presence_Manager {
 
         for (Lesson hora : horario) {
             
-            LocalDateTime end_instant = hora.getDate().plus(2,ChronoUnit.HOURS);
+            LocalDateTime end_instant = hora.getDate().plus(hora.getDuration_hours(),ChronoUnit.HOURS).plus(hora.getDuration_mins(),ChronoUnit.MINUTES);
 
             boolean is_before = instant.isBefore(hora.getDate());
             boolean is_after = instant.isAfter(end_instant);

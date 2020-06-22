@@ -1,4 +1,5 @@
 package final_project;
+import java.time.*;
 
 
 import org.junit.After;
@@ -29,12 +30,35 @@ public class Lesson_Test {
     }
 
     @Test
-    public void test1() {
+    public void test_toString() {
+        // Lesson is tested
+        Lesson tester1 = new Lesson("2020-03-24","10:00");
+
+        assertEquals(tester1.toString(),"2020-03-24 10:00");
+    }
+
+    @Test
+    public void test_setDuration() {
+        // Lesson is tested
+        Lesson tester1 = new Lesson("2020-03-24","10:00");
+        tester1.setDuration(2, 0);
+
+        LocalDateTime end_instant = new mock(LocalDateTime.class);
+        LocalDateTime result_must_be = new mock(LocalDateTime.class);
+
+        when(end_instant).thenReturn(tester1.getDate().plus(tester1.getDuration_hours(),ChronoUnit.HOURS).plus(tester1.getDuration_mins(),ChronoUnit.MINUTES));
+        when(result_must_be).thenReturn(LocalDateTime.parse("2020-03-24T12:00"));
+
+        assertEquals(end_instant,result_must_be);
+    }
+
+    @Test
+    public void test_getN_Presence() {
     // create mock
     Lesson test = mock(Lesson.class);
-    // define return value for method getUniqueId()
+
     when(test.getN_Presence()).thenReturn(1);
-    // use mock in test....
+
     assertEquals(test.getN_Presence(), 1);
     }
 }

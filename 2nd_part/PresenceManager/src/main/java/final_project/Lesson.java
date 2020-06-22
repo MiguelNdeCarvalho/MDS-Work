@@ -8,14 +8,18 @@ public class Lesson{
 
     String type;
     private LocalDateTime Date;
-    private LocalTime Duration;
+    
+    int duration_hours;
+    int duration_mins;
+
     private int N_Presence;
     private boolean valid;
 
     public Lesson(String data,String hora)
     {
         Date = LocalDateTime.parse(data+"T"+hora);
-        Duration = LocalTime.parse("00:00").plus(2,ChronoUnit.HOURS);
+        duration_hours=2;
+        duration_mins=0; //default duration is 2 H
         valid = false;
         N_Presence=0;
     }
@@ -30,14 +34,20 @@ public class Lesson{
         return Date;
     }
 
-    public void setDuration(String time)
+    public void setDuration(int h,int m)
     {
-        Duration = LocalTime.parse(time);
+        duration_hours=h;
+        duration_mins=m;
     }
 
-    public LocalTime getDuration()
+    public int getDuration_hours()
     {
-        return Duration;
+        return duration_hours;
+    }
+
+    public int getDuration_mins()
+    {
+        return duration_mins;
     }
 
 
@@ -66,9 +76,6 @@ public class Lesson{
     {
         boolean same_day =this.Date.toLocalDate().toString().equals(cmp.getDate().toLocalDate().toString());
         boolean same_hour = this.Date.toLocalTime().toString().equals(cmp.getDate().toLocalTime().toString());
-
-
-
 
 
         if (same_day && same_hour) {
