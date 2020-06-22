@@ -2,6 +2,12 @@
 
 Nesta 2ª Parte realizámos a implementação do planeamento feito na [1ª parte do Trabalho](../1st_part/)
 
+## Comandos para executar o trabalho
+
+- Para **compilar** o trabalho usar o comando `mvn clean compile assembly:single` dentro da pasta [PrensenceManager](PresenceManager/)
+- Para **executar** o trabalho usar o comando `target/PresenceManager-1.0-SNAPSHOT-jar-with-dependencies.jar` dentro da pasta [PrensenceManager](PresenceManager/)
+- Para **executar os testes** usar o comando `mvn test` dentro da pasta [PrensenceManager](PresenceManager/)
+
 ## Decisões tomadas durante a implementação
 
 Primeiramente começámos por arranjar tudo o que tínhamos de errado nos diagramas e nos requísitos. Além disso, demos setup do Maven através do ficheiro [pom.xml](PresenceManager/pom.xml) onde adicionámos as dependências necessárias, o [`Junit v4.11`](https://mvnrepository.com/artifact/junit/junit), o [`Json-Simple v1.1.1`](https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple) e por último o [`Mockito-Core v3.3.3`](https://mvnrepository.com/artifact/org.mockito/mockito-core).
