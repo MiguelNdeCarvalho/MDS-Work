@@ -188,7 +188,7 @@ public class Card_Reader extends Presence_Manager{
     
 
                 }
-                else if(user_ID.equals("exit")==true){
+                else if(user_ID.equals("sair")==true){
 
                     break;
                 }
